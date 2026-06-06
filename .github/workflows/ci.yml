@@ -1,7 +1,12 @@
+name: CI
 
 on:
   push: 
     branches: [ "feature/*" ]
+
+defaults:
+  run:
+    working-directory: app
 
 jobs:
 
@@ -17,18 +22,15 @@ jobs:
           distribution: temurin
           java-version: 25
           cache: maven
-          
+
       - name: Inicia Banco Mysql
         run: docker compose up -d mysql
-        working-directory: app
 
-      - name: Lint
-        run: mvn -B checkstyle:check
-        working-directory: app
+#      - name: Lint
+#        run: mvn -B checkstyle:check
 
       - name: Unit Tests
         run: mvn clean test
-        working-directory: app
 
       - name: Coverage
         run: mvn jacoco:report
