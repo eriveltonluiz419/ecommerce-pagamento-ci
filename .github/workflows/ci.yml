@@ -8,14 +8,6 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Inicia Banco Mysql
-        run: docker compose up -d mysql
-        working-directory: app
-
-      - name: Lint
-        run: mvn -B checkstyle:check
-        working-directory: app        
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -25,6 +17,14 @@ jobs:
           distribution: temurin
           java-version: 25
           cache: maven
+          
+      - name: Inicia Banco Mysql
+        run: docker compose up -d mysql
+        working-directory: app
+
+      - name: Lint
+        run: mvn -B checkstyle:check
+        working-directory: app
 
       - name: Unit Tests
         run: mvn clean test
