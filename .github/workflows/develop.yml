@@ -1,0 +1,11 @@
+on:
+  pull_request: develop
+
+jobs:  
+  create:
+    needs: docker
+    uses: peter-evans/create-pull-request@v7
+    with:
+      branch: develop
+      base: staging
+      title: "Auto PR: develop -> staging"
