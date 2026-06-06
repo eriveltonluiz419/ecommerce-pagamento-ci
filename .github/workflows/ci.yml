@@ -8,6 +8,14 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Inicia Banco Mysql
+        run: docker compose up -d mysql
+        working-directory: app
+
+      - name: Lint
+        run: mvn -B checkstyle:check
+        working-directory: app        
+
       - name: Checkout
         uses: actions/checkout@v4
 
