@@ -57,3 +57,39 @@ jobs:
         with:
           name: app
           path: target/*.jar
+
+  create_develop:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create PR to develop
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run:
+          gh pr create \
+            --base develop \
+            --head ${{ github.ref_name }} \
+            --title "Auto PR: ${{ github.ref_name }} -> develop" \
+            --body "PR criada automaticamente após sucesso do CI."
+
+  create_staging:
+    needs: create_develop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create PR to staging
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run:
+          gh pr create \
+            --base staging \
+            --head ${{ github.ref_name }} \
+            --title "Auto PR: ${{ github.ref_name }} -> staging" \
+            --body "PR criada automaticamente após sucesso do CI."
