@@ -8,6 +8,10 @@ defaults:
   run:
     working-directory: app
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
 
   tests:
