@@ -69,7 +69,7 @@ jobs:
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:
+        run: |
           gh pr create \
             --base develop \
             --head ${{ github.ref_name }} \
@@ -87,7 +87,7 @@ jobs:
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:
+        run: |
           gh pr create \
             --base staging \
             --head ${{ github.ref_name }} \
