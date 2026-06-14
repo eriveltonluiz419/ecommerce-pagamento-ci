@@ -72,7 +72,7 @@ jobs:
       - name: Create PR to develop
         if: success()
         env:
-          GH_TOKEN: ${{ secrets.PAT_GITHUB }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr create \
             --base develop \
@@ -90,7 +90,7 @@ jobs:
       - name: Create PR to staging
         if: success()
         env:
-          GH_TOKEN: ${{ secrets.PAT_GITHUB }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr create \
             --base staging \
